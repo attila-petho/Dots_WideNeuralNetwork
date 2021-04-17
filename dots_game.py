@@ -8,7 +8,7 @@ pygame.init()
 # Képernyő mérete, címe
 W, H = 640, 480
 WIN = pygame.display.set_mode((W, H))
-pygame.display.set_caption("Agar-IO")
+pygame.display.set_caption("Dots")
 FPS = 30
 
 # Színek
