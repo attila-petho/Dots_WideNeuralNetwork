@@ -33,7 +33,7 @@ class Dotsgame_env:
 
         # Játék inicializálása
         self.balls = []
-        self.reset()            # ha gond lenne induláskor, ezt kivenni
+        self.reset()
 
     def reset(self):
         # Alaphelyzetbe állítja a környezetet
@@ -181,7 +181,7 @@ class Dotsgame_env:
                     quit()
 
         # 4. Méretcsökkenés kezelése
-        if self.step_iteration % 60 == 0:       # ezeken az értékeken még lehet, hogy kéne állítani
+        if self.step_iteration % 60 == 0:
             if self.red_mass > 10:
                 self.red_mass = math.floor(self.red_mass * 0.96)
             if self.yellow_mass > 10:
