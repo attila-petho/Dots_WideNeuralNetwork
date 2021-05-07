@@ -23,7 +23,7 @@ def train():
     red_record = 0.0
     yellow_record = 0.0
     episode_lengths = []
-    n_episodes = 0
+    n_episodes = 1
 
     while True:
         # Régi állapot
@@ -55,7 +55,6 @@ def train():
         if game_over:
             # train long memory (Experience replay)
             env.reset()
-            n_episodes += 1
             episode_lengths.append(iteration)
             avg_length = round(sum(episode_lengths) / n_episodes, 0)
             red_agent.n_episodes = yellow_agent.n_episodes = n_episodes
@@ -82,7 +81,7 @@ def train():
             print('Epoch: ', epoch, ' Episode: ', n_episodes, ' Red Score: ', red_score, ' Red Record: ', red_record,
                   ' Yellow Score: ', yellow_score, ' Yellow Record: ', yellow_record, ' Average episode length: ', avg_length)
 
-            # Eltároljuk a szerzett pontokat és kirajzoljuk
+            # Eltároljuk a szerzett pontokat és kirajzoljuk az ábrákat
             plot_red_scores.append(red_score)
             plot_yellow_scores.append(yellow_score)
             total_red_score += red_score
@@ -94,6 +93,7 @@ def train():
             plot_scores = [plot_red_scores, plot_yellow_scores]
             plot_mean_scores = [plot_red_mean_scores, plot_yellow_mean_scores]
             scoreplot(plot_scores, plot_mean_scores)
+            n_episodes += 1
 
 if __name__ == '__main__':
     train()
