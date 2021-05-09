@@ -6,19 +6,19 @@ from collections import deque
 from model import Q_Network, Q_Trainer
 
 MAX_MEMORY = 100_000    # Memória maximális mérete
-BATCH_SIZE = 1000       # Batch mérete
+BATCH_SIZE = 500        # Batch mérete
 LR = 0.001              # Learning rate
 
 class Agent:
 
-    def __init__(self):
+    def __init__(self, max_epsilon=1):
         self.n_episodes = 1                         # Epizódok száma
-        self.max_epsilon = 1                        # Exploration kezdeti valószínűsége
+        self.max_epsilon = max_epsilon              # Exploration kezdeti valószínűsége
         self.min_epsilon = 0.0001                   # Min. exploration valószínűség
-        self.decay_rate = 0.02                      # Exploration exponenciális csökkenésének mértéke
+        self.decay_rate = 0.01                      # Exploration exponenciális csökkenésének mértéke
         self.gamma = 0.9                            # Diszkont ráta
         self.memory = deque(maxlen=MAX_MEMORY)      # Memória
-        self.model = Q_Network(366, 512, 512, 4)    # Rétegek méretei
+        self.model = Q_Network(366, 1024, 1024, 4)  # Rétegek méretei
         self.trainer = Q_Trainer(self.model, lr=LR, gamma=self.gamma)
 
     def remember(self, state, action, reward, next_state, game_over):
