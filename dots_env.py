@@ -6,21 +6,21 @@ import numpy as np
 
 class Dotsgame_env:
 
-    def __init__(self, max_steps=2000, show_horizon=False):
+    def __init__(self, max_steps=2000, FPS = 30, show_horizon=False):
         pygame.init()
         getcontext().prec = 1
         # Változók
-        self.max_steps = max_steps          # max ennyi lépés lehet egy epizódban
-        self.show_horizon = show_horizon    # látótér megjelenítése
-        self.PLAYER_RADIUS = 10             # játékosok kezdő sugara
-        self.START_VEL = 5                  # játékosok kezdő sebessége
-        self.BALL_RADIUS = 5                # pöttyök mérete
-        self.N_BALLS = 100                  # pöttyök száma
-        self.frame_reward = Decimal('0.1')  # jutalom/képkocka
-        self.horizon_radius = 100           # játékosok látóterének mérete (kontúrtól számítva)
+        self.max_steps = max_steps           # max ennyi lépés lehet egy epizódban
+        self.show_horizon = show_horizon     # látótér megjelenítése
+        self.PLAYER_RADIUS = 10              # játékosok kezdő sugara
+        self.START_VEL = 5                   # játékosok kezdő sebessége
+        self.BALL_RADIUS = 5                 # pöttyök mérete
+        self.N_BALLS = 100                   # pöttyök száma
+        self.frame_reward = Decimal('0.001') # jutalom/lépés
+        self.horizon_radius = 100            # játékosok látóterének mérete (kontúrtól számítva)
 
         # Képernyő inicializálása
-        self.FPS = 30
+        self.FPS = FPS
         self.W = 640
         self.H = 480
         self.WIN = pygame.display.set_mode((self.W, self.H))
@@ -183,9 +183,9 @@ class Dotsgame_env:
         # 4. Méretcsökkenés kezelése
         if self.step_iteration % 60 == 0:
             if self.red_mass > 10:
-                self.red_mass = math.floor(self.red_mass * 0.96)
+                self.red_mass = math.floor(self.red_mass * 0.97)
             if self.yellow_mass > 10:
-                self.yellow_mass = math.floor(self.yellow_mass * 0.96)
+                self.yellow_mass = math.floor(self.yellow_mass * 0.97)
 
         # 5. Pöttyökkel és pontszámok ütközés kezelése
         self.ball_collision()
@@ -221,34 +221,33 @@ class Dotsgame_env:
             if red_dis <= self.PLAYER_RADIUS + self.red_mass + 2.5:
                 self.red_mass = self.red_mass + 1
                 self.balls.remove(ball)
-                self.red_reward = 1
+                self.red_reward = 0.01
                 self.red_score += 1
 
 
             elif yellow_dis <= self.PLAYER_RADIUS + self.yellow_mass + 2.5:
                 self.yellow_mass = self.yellow_mass + 1
                 self.balls.remove(ball)
-                self.yellow_reward = 1
+                self.yellow_reward = 0.01
                 self.yellow_score += 1
 
     def player_collision(self):
         # kezeli a játékosok ütközését
         dis = math.sqrt((self.yellow_x - self.red_x) ** 2 + (self.yellow_y - self.red_y) ** 2)
-        if self.red_mass < self.yellow_mass:
-            if dis < (self.yellow_mass + self.red_mass + self.PLAYER_RADIUS*2):
+        if dis < (self.yellow_mass + self.red_mass + self.PLAYER_RADIUS * 2):
+            if self.red_mass < self.yellow_mass:
                 self.yellow_mass = math.sqrt(self.yellow_mass ** 2 + self.red_mass ** 2)
                 self.red_mass = 0
-                self.yellow_reward = 100
-                self.red_reward = -100
+                self.yellow_reward = 1
+                self.red_reward = -1
                 self.yellow_score += 100
                 return True
 
-        elif self.yellow_mass < self.red_mass:
-            if dis < (self.red_mass + self.yellow_mass + self.PLAYER_RADIUS*2):
+            elif self.yellow_mass <= self.red_mass:
                 self.red_mass = math.sqrt(self.red_mass ** 2 + self.yellow_mass ** 2)
                 self.yellow_mass = 0
-                self.red_reward = 100
-                self.yellow_reward = -100
+                self.red_reward = 1
+                self.yellow_reward = -1
                 self.red_score += 100
                 return True
 
