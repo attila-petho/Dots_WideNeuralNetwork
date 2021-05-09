@@ -6,7 +6,7 @@ def train():
     maxsteps = 1000     # Max lépés/epizód (Tanítás: 1000)
     save_freq = 20      # Mentés gyakorisága
     load_model = False  # Mentett model betöltése
-    env = Dotsgame_env(max_steps=maxsteps, show_horizon=True)
+    env = Dotsgame_env(max_steps=maxsteps, FPS=200, show_horizon=True)
     red_agent = Agent()
     yellow_agent = Agent()
     epoch = 1
