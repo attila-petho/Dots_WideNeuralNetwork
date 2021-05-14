@@ -113,7 +113,7 @@ We can see that the red agent started off eating the other agent, and after that
 
 Here we can see the agents learning to collect as many dots as they can.
 
-![](images/dots_1.png.gif)
+![](images/dots_1.gif)
 
 Sometimes the hunter has no patience, it just wants to eat the other player right away :)
 
