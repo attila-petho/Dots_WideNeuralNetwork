@@ -111,6 +111,14 @@ We can see that the red agent started off eating the other agent, and after that
 
 <img src="logs/scores_ep_200.png" width="600px">
 
+Here we can see the agents learning to collect as many dots as they can.
+
+<img src="images/dots_1.png" width="500px">
+
+Sometimes the hunter has no patience, it just wants to eat the other player right away :)
+
+<img src="images/dotsgame3_29fps.png" width="500px">
+
 ## Summary
 
 - The results of our experiment proved that making the underlying Neural Networks shallower and wider is a usable option in Deep Q-Learning, however the exact architecture and it's size is not optimal. Too big networks mean slow learning because of the wast number of adjustable parameters and too small networks are not capable enough to handle the task.
