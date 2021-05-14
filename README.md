@@ -4,8 +4,8 @@ This project is about exploring the possibilities of using Wide Neural Networks 
 
 ## Implemented by
 
-- Ákos Juhász <juhasz.akos@edu.bme.hu>
-- Attila Gábor Pethő <pethoati@edu.bme.hu>
+- Ákos Juhász - <juhasz.akos@edu.bme.hu>
+- Attila Gábor Pethő - <pethoati@edu.bme.hu>
 
 ## Sources and References
 
@@ -29,7 +29,7 @@ The game environment is a two-player version of the game Agar.io, where a red an
 
 ### Action Space
 
-The Action Space consists of the four basic controls, Left, Right, Up and Down. Each direction corresponds to a one-hot encoded vector as the prediction from the Q Network.
+The Action Space consists of the four basic controls, Left, Right, Up and Down. Each direction corresponds to a one-hot encoded vector as the prediction from the Q-Network.
 
 Action  | Vector
 ------------- | -------------
@@ -40,7 +40,7 @@ Down  | [0, 0, 0, 1]
 
 ### Observation Space
 
-The agents don't see the whole environment, instead each player has a field of view around them, which is a fixed value added to their radii, so it gets bigger when they grow. The Observation Space is a vector with 366 elements. The first 360 elements correspond to an angle around the players, and the next four is for the boundaries. When a small dot or a wall is in the player's field of view, it's distance from the player is stored in the corresponding place in the vector. The last two slots store the radii of the two players, this way they have information about the other player's size, even if they don't "see" each other, which makes their decision easier. Each agent gets an observation vector from the environment, and to make the learning easier, the vectors are normalized using each player's field of view, so the resulting vector can be seen as a sort of relative distance from the players.
+The agents don't see the whole environment, instead each player has a field of view around them, which is a fixed value added to their radii, so it gets bigger when they grow. The Observation Space is a vector with 366 elements. The first 360 elements correspond to an angle around the players, and the next four is for the boundaries. When a small dot or a wall is in the player's field of view, it's distance from the player is stored in the corresponding place in the vector. If the enemy player is in sight, its distance from the player is also stored at the specific angle but with a negative sign. The last two slots store the radii of the two players, this way they have information about the other player's size, even if they don't "see" each other, which makes their decision easier. Each agent gets an observation vector from the environment, and to make the learning easier, the vectors are normalized using each player's field of view, so the resulting vector can be seen as a sort of relative distance from the players.
 
 ### Scores and Rewards
 
@@ -62,7 +62,7 @@ The rewards are based on the scores, and because our goal is to incentivise the 
 ## Deep Q Learning
 
 Q-Learning is a Reinforcement Learning algorithm which can be used to solve Markov Decision Processes. We chose this algorithm because of its simplicity and beginner-friendly nature.
-In Q-Learning, the goal is to train a software agent to make intelligent decisions in an environment, based on information called 'state' and 'reward' to maximize the expected future reward using a so-called 'Q-Table'. In the 'Q-Table' each row corresponds to a state and each column corresponds to an action in that state. At each timestep the agent calculates the Q-values in the table using the Bellman-equation. The Q-value is basically the expected future rewards given by taking the specific action during the specific state.
+In Q-Learning, the goal is to train a software agent to make intelligent decisions in an environment, based on information called 'state' and 'reward' to maximize the expected future reward using a so-called 'Q-Table'. In the 'Q-Table' each row corresponds to a state and each column corresponds to an action in that state. At each timestep the agent calculates the Q-values in the table using the Bellman equation. The Q-value is basically the expected future rewards given by taking the specific action during the specific state.
 
 In a more mathematical description, the Q-value can be written as:
 
@@ -105,7 +105,7 @@ We used the Adam optimizer and the MSEloss with the estimated and the target Q-v
 
 ## Training Results
 
-We trained the models for 200 episodes with 1000 steps long episodes. This particular length was chosen because it gives enough time for the agents to collect most of the 100 dots placed in the environment and also chase each other.
+We trained the models for 200 episodes with 1000 steps long episodes. This particular length was chosen because it gives enough time for the agents to collect most of the 100 dots placed in the environment and also to chase each other.
 
 We can see that the red agent started off eating the other agent, and after that the mean scores were steadily rising throughout the training for both agents. The red agent has more frequent spikes in its scores which indicates that it successfully ate its opponent more times than the other way around, which is what we expected. However after around a hundred episodes the yellow agent also started to realize that it could win the game by collecting enough dots and then attacking the red player.
 
@@ -123,3 +123,4 @@ Sometimes the hunter has no patience, it just wants to eat the other player righ
 
 - The results of our experiment proved that making the underlying Neural Networks shallower and wider is a usable option in Deep Q-Learning, however the exact architecture and it's size is not optimal. Too big networks mean slow learning because of the wast number of adjustable parameters and too small networks are not capable enough to handle the task.
 - Our future goal is to experiment more with the architecture and the hyperparameters, for example smaller batch sizes and different learning rates. We would also need much longer training sessions to truly see what these algorithms are capable of.
+- And as a bonus we would like to add the option in the human controlled game to play against a trained model.
