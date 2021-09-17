@@ -5,7 +5,7 @@ This project is about exploring the possibilities of using Wide Neural Networks 
 ## Implemented by
 
 - Ákos Juhász - <juhasz.akos@edu.bme.hu>
-- Attila Gábor Pethő - <pethoati@edu.bme.hu>
+- Attila Gábor Pethő (maintainer) - <pethoati@edu.bme.hu>
 
 ## Sources and References
 
@@ -59,7 +59,7 @@ The rewards are based on the scores, and because our goal is to incentivise the 
 | eating a player      | +1      | +1 |
 | steps      | -0.001      |    +0.001 |
 
-## Deep Q Learning
+## Deep Q-Learning
 
 Q-Learning is a Reinforcement Learning algorithm which can be used to solve Markov Decision Processes. We chose this algorithm because of its simplicity and beginner-friendly nature.
 In Q-Learning, the goal is to train a software agent to make intelligent decisions in an environment, based on information called 'state' and 'reward' to maximize the expected future reward using a so-called 'Q-Table'. In the 'Q-Table' each row corresponds to a state and each column corresponds to an action in that state. At each timestep the agent calculates the Q-values in the table using the Bellman equation. The Q-value is basically the expected future rewards given by taking the specific action during the specific state.
