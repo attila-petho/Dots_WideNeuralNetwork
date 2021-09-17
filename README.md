@@ -4,8 +4,8 @@ This project is about exploring the possibilities of using Wide Neural Networks 
 
 ## Implemented by
 
+- Attila Pethő (maintainer) - <attilapetho13@gmail.com>
 - Ákos Juhász - <juhasz.akos@edu.bme.hu>
-- Attila Gábor Pethő (maintainer) - <pethoati@edu.bme.hu>
 
 ## Sources and References
 
