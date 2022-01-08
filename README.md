@@ -1,4 +1,4 @@
-# A27_WideNeuralNetwork
+# A27_WideNeuralNetwork - TEST
 
 This project is about exploring the possibilities of using Wide Neural Networks instead of Deep Nets in Reinforcement Learning. For this purpose we trained two Deep Q-Learning agents in an Agar.io-like environment, called 'Dots'.
 
