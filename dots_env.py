@@ -9,7 +9,7 @@ class Dotsgame_env:
     def __init__(self, max_steps=2000, FPS = 30, show_horizon=False):
         pygame.init()
         getcontext().prec = 1
-        # Változók
+        # Variables
         self.max_steps = max_steps           # max ennyi lépés lehet egy epizódban
         self.show_horizon = show_horizon     # látótér megjelenítése
         self.PLAYER_RADIUS = 10              # játékosok kezdő sugara
@@ -19,7 +19,7 @@ class Dotsgame_env:
         self.frame_reward = Decimal('0.001') # jutalom/lépés
         self.horizon_radius = 100            # játékosok látóterének mérete (kontúrtól számítva)
 
-        # Képernyő inicializálása
+        # Initialize screen
         self.FPS = FPS
         self.W = 640
         self.H = 480
@@ -31,12 +31,12 @@ class Dotsgame_env:
         pygame.display.set_caption("Dots AI")
         self.clock = pygame.time.Clock()
 
-        # Játék inicializálása
+        # Initialize game
         self.balls = []
         self.reset()
 
     def reset(self):
-        # Alaphelyzetbe állítja a környezetet
+        # Initialize game environment
         self.balls.clear()
         self.red_mass = 1
         self.yellow_mass = 1
@@ -49,7 +49,7 @@ class Dotsgame_env:
         self.step_iteration = 0
 
     def create_balls(self):
-        # Létrehozza a pöttyöket
+        # Creates small balls
         for i in range(self.N_BALLS):
             while True:
                 stop = True
@@ -65,7 +65,7 @@ class Dotsgame_env:
             self.balls.append((x, y, random.choice(self.COLORS)))
 
     def get_state(self):
-        # Létrehozza a megfigyeléseket
+        # Creates observations for the agents
         # Fokonként eltároljuk a pöttyök távolságát a játékosoktól, ha a látótéren belül vannak
         red_polar = np.zeros(360)
         yellow_polar = np.zeros(360)
@@ -130,6 +130,7 @@ class Dotsgame_env:
         return [red_state, yellow_state]
 
     def step(self, red_action, yellow_action):
+        # Steps environment
         self.step_iteration += 1
         self.red_reward = -self.frame_reward       # pirosnak minden lépés: - jutalom
         self.yellow_reward = self.frame_reward     # sárgának minden lépés: + jutalom
@@ -210,7 +211,7 @@ class Dotsgame_env:
         return state, reward, score, self.step_iteration, game_over
 
     def ball_collision(self):
-        # kezeli ha egy játékos ütközik egy pöttyel
+        # Handles player collision with balls
         for ball in self.balls:
             bx = ball[0]
             by = ball[1]
